@@ -55,7 +55,7 @@ const convert = () => {
             <span className="bg-red-500 text-white px-2">Currency</span>
             <span className="bg-blue-500 text-white px-2">Converter</span>
           </h1>
-          <form
+          <form 
             onSubmit={(e) => {
               e.preventDefault();
               convert();
