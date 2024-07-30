@@ -10,20 +10,21 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { useSelector } from "react-redux";
-
+import { useSelector,useDispatch } from "react-redux";
+import { addToCart } from "./cartSlice";
 
 export default function App() {
   const items = useSelector((state) => state.allcart.items);
 
-  console.log(items);
 
+  const dispatch = useDispatch()
+  
   return (
-    <div class="m-2">
+    <div className="m-3">
       <MDBContainer>
         <MDBRow className="mb-3">
-          { items.map((item)=>(
-              <MDBCol size="4">
+          {items.map((item, index) => (
+            <MDBCol key={index} size="4">
               <MDBCard>
                 <MDBCardImage
                   src={item.img}
@@ -31,17 +32,15 @@ export default function App() {
                   alt="..."
                 />
                 <MDBCardBody>
-                  <MDBCardTitle>Card title</MDBCardTitle>
+                  <MDBCardTitle>{item.title}</MDBCardTitle>
                   <MDBCardText>
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
+                    {item.text}
                   </MDBCardText>
-                  <MDBBtn href="#">Button</MDBBtn>
+                  <MDBBtn onClick={() => dispatch(addToCart(item))}>Add to cart</MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
-          ))
-            }
+          ))}
         </MDBRow>
       </MDBContainer>
     </div>
