@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   MDBCard,
   MDBCardBody,
@@ -10,33 +10,28 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { useSelector,useDispatch } from "react-redux";
-import { addToCart } from "./cartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice";
 
 export default function App() {
-  const items = useSelector((state) => state.allcart.items);
+  const items = useSelector((state) => state.allCart.items);
 
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
   return (
-    <div className="m-3">
+    <div className="m-2">
       <MDBContainer>
         <MDBRow className="mb-3">
-          {items.map((item, index) => (
-            <MDBCol key={index} size="4">
+          {items.map((item) => (
+            <MDBCol key={item.id} size="md">
               <MDBCard>
-                <MDBCardImage
-                  src={item.img}
-                  position="top"
-                  alt="..."
-                />
+                <MDBCardImage src={item.img} position="top" alt="..." />
                 <MDBCardBody>
                   <MDBCardTitle>{item.title}</MDBCardTitle>
-                  <MDBCardText>
-                    {item.text}
-                  </MDBCardText>
-                  <MDBBtn onClick={() => dispatch(addToCart(item))}>Add to cart</MDBBtn>
+                  <MDBCardText>{item.price}</MDBCardText>
+                  <MDBBtn onClick={() => dispatch(addToCart(item))}>
+                    Add to Cart
+                  </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
